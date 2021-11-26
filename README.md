@@ -1,10 +1,6 @@
 # TicTacToe Dapp
 A dapp for participants to bet on and compete in tic toe games using erc20 tokens.
 
-## Usage Guide
-### Setup
-### Using the dApp
-
 ## Stack and Technologies
 1. React.js - User Interface
 2. Hardhat - Local testnet and deployment
@@ -19,6 +15,8 @@ A dapp for participants to bet on and compete in tic toe games using erc20 token
 
 ## Resources and Tutorials
 1. [Full stack dapp guide](https://www.youtube.com/watch?v=a0osIaAOFSE)
+2. [Tutorialspoint](https://www.tutorialspoint.com/solidity/index.htm)
+3. [Betting dApp guide](https://medium.com/coinmonks/create-a-sports-betting-dapp-on-the-ethereum-blockchain-part-1-1f69f908b939)
 
 
 ## Problem Statement
