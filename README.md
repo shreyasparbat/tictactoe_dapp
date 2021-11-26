@@ -1,23 +1,26 @@
 # TicTacToe Dapp
 A dapp for participants to bet on and compete in tic toe games using erc20 tokens.
 
-## Guide
+## Usage Guide
 ### Setup
-### Running the Project
+### Using the dApp
 
-## Stack and Tools
-1. React.js
-2. Hardhat
-3. Ethereum
-4. Metamask
+## Stack and Technologies
+1. React.js - User Interface
+2. Hardhat - Local testnet and deployment
+3. Ethereum - Base blockchain network
+4. Metamask - Wallets
+5. Ropsten - Hosted testnet
+6. Infura - Hosted Ethereum node to interact with Ropsten
+
+## Project Management and Learning
+- [Trello](https://trello.com/b/jmvSTreQ)
+- [Notes](https://gold-raptor-98e.notion.site/Full-stack-dApp-guide-37b9bd5240814587855f2573815f4d0e)
 
 ## Resources and Tutorials
 1. [Full stack dapp guide](https://dev.to/dabit3/the-complete-guide-to-full-stack-ethereum-development-3j13)
 2. [Full stack dapp guide (video)](https://www.youtube.com/watch?v=a0osIaAOFSE)
 3. [Hardhat](https://hardhat.org/)
-
-## Project Management
-[Trello](https://trello.com/b/jmvSTreQ)
 
 
 ## Problem Statement
