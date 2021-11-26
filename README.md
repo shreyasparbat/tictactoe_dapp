@@ -18,9 +18,7 @@ A dapp for participants to bet on and compete in tic toe games using erc20 token
 - [Notes](https://gold-raptor-98e.notion.site/Full-stack-dApp-guide-37b9bd5240814587855f2573815f4d0e)
 
 ## Resources and Tutorials
-1. [Full stack dapp guide](https://dev.to/dabit3/the-complete-guide-to-full-stack-ethereum-development-3j13)
-2. [Full stack dapp guide (video)](https://www.youtube.com/watch?v=a0osIaAOFSE)
-3. [Hardhat](https://hardhat.org/)
+1. [Full stack dapp guide](https://www.youtube.com/watch?v=a0osIaAOFSE)
 
 
 ## Problem Statement
