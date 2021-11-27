@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { ethers } from 'ethers'
 import './App.css'
 import React, { Component } from 'react'
+import Betting from './artifacts/contracts/Betting.sol/Betting.json'
+
+const bettingAddress = ''
 
 function App() {
   const [ad1, setAd1] = useState('')
@@ -27,14 +30,20 @@ function App() {
   ]
 
   async function startGame() {
-    // // Deposit funds to contract
-    // const t1 = await contract.transfer(ad1, betAmmount);
-    // const t2 = await contract.tranfer(ad2, betAmmount);
-    // await t1.wait();
-    // await t2.wait();
-    // Create contract
-    // Create bet
-    //
+    if (typeof window.ethereum !== 'undefined') {
+      // // Deposit funds to contract
+      // const t1 = await contract.transfer(ad1, betAmmount);
+      // const t2 = await contract.tranfer(ad2, betAmmount);
+      // await t1.wait();
+      // await t2.wait();
+      // Create contract
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const contract = new ethers.Contract(bettingAddress, Betting.abi, signer)
+
+      // Create bet
+      
+    }
   }
 
   function checkEndGame() {
