@@ -1,5 +1,5 @@
 # TicTacToe Dapp
-A dapp for participants to bet on and compete in tic toe games using erc20 tokens.
+A dapp for participants to bet on and compete in tic toe games using Ethereum
 
 ## Stack and Technologies
 1. React.js - User Interface
