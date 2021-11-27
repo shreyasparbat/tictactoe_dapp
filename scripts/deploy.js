@@ -2,14 +2,14 @@ const hre = require("hardhat");
 
 async function main() {
   // Create Greeter contract
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const Betting = await hre.ethers.getContractFactory("Betting");
+  const betting = await Betting.deploy();
 
   // Deploy
-  await greeter.deployed();
+  await betting.deployed();
 
   // Print contract address
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("Betting deployed to:", betting.address);
 }
 
 // Run main
