@@ -4,7 +4,7 @@ import "./App.css";
 import React, { Component } from "react";
 import Betting from "./artifacts/contracts/Betting.sol/Betting.json";
 
-const bettingAddress = "0xd9Bb9E42Cb63807244d727447085A509fa4caE35";
+const bettingAddress = "0x365Bf95A025B5884a000df6E1E4886B3E998e6E7";
 
 function App() {
   const [winner, setWinner] = useState("");
@@ -143,7 +143,10 @@ function App() {
         )}
         <br />
         {/* Game Board */}
-        Note: P2 goes first
+        <p>
+          Note: P2 goes first, and active account pays gas-fees for final
+          transaction
+        </p>
         {gameBoard.map((row, i) => (
           <view style={{ flexDirection: "row" }}>
             {row.map((val, j) => (
