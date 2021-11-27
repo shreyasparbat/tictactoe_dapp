@@ -18,6 +18,10 @@ A dapp for participants to bet on and compete in tic toe games using Ethereum
 2. [Tutorialspoint](https://www.tutorialspoint.com/solidity/index.htm)
 3. [Betting dApp guide](https://medium.com/coinmonks/create-a-sports-betting-dapp-on-the-ethereum-blockchain-part-1-1f69f908b939)
 
+## Next Steps
+1. Introduce lobby system to allow players to compete remotely
+2. Improve betting contract (for e.g. use *game ids* to allow asynchronous betting)
+3. Deploy frontend
 
 ## Problem Statement
 This should simulate tic tac toe game on which participating players can bet using
