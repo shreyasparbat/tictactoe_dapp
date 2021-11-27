@@ -5,13 +5,17 @@ pragma solidity ^0.8.4;
 contract Betting {
     uint public betAmount;
     address payable[2] public players;
-    uint256 public balance;
 
     event TransferReceived(address _from, uint _amount);
     event TransferSent(address _to, uint _amount);
 
     constructor() {
         betAmount = 0;
+    }
+
+    function reset() public {
+        betAmount = 0;
+        delete players;
     }
 
     function bet() external payable {
@@ -23,6 +27,7 @@ contract Betting {
         } else {
             // Sender is Player 2
             require(msg.value == betAmount, "Player 2 must bet the same amount as player 1 to accept challange");
+            betAmount += msg.value;
             players[1] = payable(msg.sender);
             emit TransferReceived(msg.sender, msg.value);
         }
@@ -34,12 +39,10 @@ contract Betting {
 
         // Send funds to winner
         players[winnerIdx].transfer(betAmount);
-        emit TransferSent(players[winnerIdx], betAmount*2);
+        emit TransferSent(players[winnerIdx], betAmount);
 
         // Reset variables
-        betAmount = 0;
-        delete players;
-        balance = 0;
+        reset();
     }
 
     function balanceOf() external view returns (uint) {

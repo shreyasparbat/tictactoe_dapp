@@ -16,6 +16,7 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState(2);
   const [player1HasBet, setPlayer1HasBet] = useState(false);
   const [paymentSuccessful, setPaymentSuccessful] = useState("");
+  const [betAmount, setBetAmount] = useState(0);
 
   const winningLines = [
     [0, 1, 2],
@@ -30,11 +31,16 @@ function App() {
 
   async function acceptPayment() {
     if (typeof window.ethereum !== "undefined") {
+      setPaymentSuccessful("Processing Transaction...");
+      await window.ethereum.send("eth_requestAccounts");
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(bettingAddress, Betting.abi, signer);
-      const txn = await contract.bet();
+      const txn = await contract.bet({
+        value: ethers.utils.parseEther(betAmount),
+      });
       await txn.wait();
+      console.log(await contract.balanceOf());
     }
   }
 
@@ -83,6 +89,7 @@ function App() {
     const signer = provider.getSigner();
     const contract = new ethers.Contract(bettingAddress, Betting.abi, signer);
     await contract.endGame(winner === "Player 1");
+    console.log(await contract.balanceOf());
   }
 
   async function setSelection(row, col) {
@@ -96,11 +103,28 @@ function App() {
     }
   }
 
+  function isFloat(val) {
+    var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
+    if (!floatRegex.test(val)) return false;
+    val = parseFloat(val);
+    if (isNaN(val)) return false;
+    return true;
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        {/* Bet Buttons */}
-        <button onClick={player1Bet} disabled={player1HasBet}>
+        {/* Bet amount and buttons */}
+        Bet Amount (in ETH):
+        <input
+          value={betAmount}
+          onChange={(e) => setBetAmount(e.target.value)}
+          disabled={player1Bet}
+        />
+        <button
+          onClick={player1Bet}
+          disabled={player1HasBet || betAmount <= 0 || !isFloat(betAmount)}
+        >
           Player 1 Bet
         </button>
         <button onClick={player2Bet} disabled={!player1HasBet}>
@@ -112,8 +136,10 @@ function App() {
           <div></div>
         ) : paymentSuccessful === "Player 1" ? (
           <div>Player 1 payment successful</div>
-        ) : (
+        ) : paymentSuccessful === "Player 2" ? (
           <div>All payments made. Start game</div>
+        ) : (
+          <div>{paymentSuccessful}</div>
         )}
         <br />
         {/* Game Board */}
@@ -122,114 +148,18 @@ function App() {
           <view style={{ flexDirection: "row" }}>
             {row.map((val, j) => (
               <button
-                onClick={(e) => setSelection(0, 0)}
+                onClick={(_) => setSelection(i, j)}
                 disabled={
-                  gameBoard[i][j] !== null ||
+                  val !== null ||
                   winner !== "" ||
                   paymentSuccessful !== "Player 2"
                 }
               >
-                {gameBoard[i][j] === null ? "-" : gameBoard[i][j]}
+                {val === null ? "-" : val}
               </button>
             ))}
           </view>
         ))}
-        <view style={{ flexDirection: "row" }}>
-          <button
-            onClick={(e) => setSelection(0, 0)}
-            disabled={
-              gameBoard[0][0] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[0][0] === null ? "-" : gameBoard[0][0]}
-          </button>
-          <button
-            onClick={(e) => setSelection(0, 1)}
-            disabled={
-              gameBoard[0][1] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[0][1] === null ? "-" : gameBoard[0][1]}
-          </button>
-          <button
-            onClick={(e) => setSelection(0, 2)}
-            disabled={
-              gameBoard[0][2] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[0][2] === null ? "-" : gameBoard[0][2]}
-          </button>
-        </view>
-        <view style={{ flexDirection: "row" }}>
-          <button
-            onClick={(e) => setSelection(1, 0)}
-            disabled={
-              gameBoard[1][0] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[1][0] === null ? "-" : gameBoard[1][0]}
-          </button>
-          <button
-            onClick={(e) => setSelection(1, 1)}
-            disabled={
-              gameBoard[1][1] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[1][1] === null ? "-" : gameBoard[1][1]}
-          </button>
-          <button
-            onClick={(e) => setSelection(1, 2)}
-            disabled={
-              gameBoard[1][2] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[1][2] === null ? "-" : gameBoard[1][2]}
-          </button>
-        </view>
-        <view style={{ flexDirection: "row" }}>
-          <button
-            onClick={(e) => setSelection(2, 0)}
-            disabled={
-              gameBoard[2][0] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[2][0] === null ? "-" : gameBoard[2][0]}
-          </button>
-          <button
-            onClick={(e) => setSelection(2, 1)}
-            disabled={
-              gameBoard[2][1] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[2][1] === null ? "-" : gameBoard[2][1]}
-          </button>
-          <button
-            onClick={(e) => setSelection(2, 2)}
-            disabled={
-              gameBoard[2][2] !== null ||
-              winner !== "" ||
-              paymentSuccessful !== "Player 2"
-            }
-          >
-            {gameBoard[2][2] === null ? "-" : gameBoard[2][2]}
-          </button>
-        </view>
         {/* Winner message */}
         {winner === "" ? (
           <div></div>
